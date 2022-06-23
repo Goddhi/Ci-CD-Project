@@ -140,7 +140,6 @@ jobs:
           command: |
             cd backend
             npm install
-            npm audit --audit-level=critical 
       # - slack/notify:
       #     event: fail
       #     template: basic_fail_1                     
