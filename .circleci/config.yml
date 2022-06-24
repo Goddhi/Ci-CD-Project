@@ -22,10 +22,13 @@ commands:
           command: |
             echo "Destroying environment: << parameters.workflow_id >>"
             aws cloudformation delete-stack \
-            --stack-name udapeople-backend-<<parameters.workflow_id>>
-            aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive
+            --stack-name udapeople-backend-<<parameters.workflow_id>> \
+            --profile projectUdacity
+            aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive \
+            --profile projectUdacity
             aws cloudformation delete-stack \
-            --stack-name udapeople-frontend-<<parameters.workflow_id>>
+            --stack-name udapeople-frontend-<<parameters.workflow_id>> \
+            --profile profileUdacity
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
@@ -167,8 +170,7 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      - run: sudo apt-get install -y tar
-      - run: sudo apt-get -y install gzip
+      - run: sudo apt-get -y install tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
