@@ -179,7 +179,7 @@ jobs:
               --tags project=udapeople \
               --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
               --profile projectUdacity \
-              -parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
+              --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
               # exit 1
       - run:
           name: Ensure front-end infrastructure exist
