@@ -23,12 +23,9 @@ commands:
             echo "Destroying environment: << parameters.workflow_id >>"
             aws cloudformation delete-stack \
             --stack-name udapeople-backend-<<parameters.workflow_id>> \
-            --profile projectUdacity
             aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive \
-            --profile projectUdacity
             aws cloudformation delete-stack \
             --stack-name udapeople-frontend-<<parameters.workflow_id>> \
-            --profile projectUdacity
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
@@ -179,7 +176,6 @@ jobs:
               --tags project=udapeople \
               --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
               --parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7} \
-              --profile projectUdacity 
 
       - run:
           name: Ensure front-end infrastructure exist
@@ -189,7 +185,6 @@ jobs:
               --tags project=udapeople \
               --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
               --parameter-overrides ID=-${CIRCLE_WORKFLOW_ID:0:7} \
-              --profile projectUdacity
  
       - run:
           name: Add back-end ip to ansible inventory
