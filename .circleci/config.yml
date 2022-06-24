@@ -177,9 +177,9 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
               --tags project=udapeople \
-              --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:6} \
+              --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
               --profile projectUdacity \
-              -parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:6}  
+              -parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:7}  
               # exit 1
       - run:
           name: Ensure front-end infrastructure exist
@@ -187,16 +187,16 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
               --tags project=udapeople \
-              --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:6} \
+              --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7} \
               --profile projectUdacity
-              --parameter-overrides ID=-${CIRCLE_WORKFLOW_ID:0:6}  
+              --parameter-overrides ID=-${CIRCLE_WORKFLOW_ID:0:7}  
               # exit 1
       - run:
           name: Add back-end ip to ansible inventory
           command: |
             echo $(aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:6} \
+            --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
             --output text) >> ~/project/.circleci/ansible/inventory.txt
             cat ~/project/.circleci/ansible/inventory.txt
       - persist_to_workspace:
@@ -205,7 +205,7 @@ jobs:
             - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure      
       - destroy-environment:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:6}
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
           
 #   configure-infrastructure:
 #     docker:
