@@ -178,6 +178,7 @@ jobs:
               --template-file .circleci/files/backend.yml \
               --tags project=udapeople \
               --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:6} \
+              --profile projectUdacity \
               -parameter-overrides ID=${CIRCLE_WORKFLOW_ID:0:6}  
               # exit 1
       - run:
@@ -187,6 +188,7 @@ jobs:
               --template-file .circleci/files/frontend.yml \
               --tags project=udapeople \
               --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:6} \
+              --profile projectUdacity
               --parameter-overrides ID=-${CIRCLE_WORKFLOW_ID:0:6}  
               # exit 1
       - run:
