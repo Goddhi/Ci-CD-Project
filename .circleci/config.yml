@@ -8,24 +8,24 @@ parameters:
 orbs:
   slack: circleci/slack@4.1
 
-commands:
-  destroy-environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    parameters:
-      # Add parameter here
-      workflow_id:
-        type: string
-    steps:
-      - run:
-          name: Destroy environments
-          when: on_fail
-          command: |
-            echo "Destroying environment: << parameters.workflow_id >>"
-            aws cloudformation delete-stack \
-            --stack-name udapeople-backend-<<parameters.workflow_id>>
-            aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive --region us-east-1
-            aws cloudformation delete-stack \
-            --stack-name udapeople-frontend-<<parameters.workflow_id>>
+# commands:
+#   destroy-environment:
+#     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+#     parameters:
+#       # Add parameter here
+#       workflow_id:
+#         type: string
+#     steps:
+#       - run:
+#           name: Destroy environments
+#           when: on_fail
+#           command: |
+#             echo "Destroying environment: << parameters.workflow_id >>"
+#             aws cloudformation delete-stack \
+#             --stack-name udapeople-backend-<<parameters.workflow_id>>
+#             aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive --region us-east-1
+#             aws cloudformation delete-stack \
+#             --stack-name udapeople-frontend-<<parameters.workflow_id>>
 
   # revert-migrations:
   #   description: Revert the last migration if successfully run in the current workflow.
@@ -226,7 +226,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            # # add environment variables to serverrr
+            # # add environment variables to server
             # echo ENVIRONMENT=production > backend/.env
             # echo TYPEORM_CONNECTION=$TYPEORM_CONNECTION >> backend/.env
             # echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> backend/.env
@@ -238,6 +238,7 @@ jobs:
             # echo TYPEORM_PORT=$TYPEORM_PORT >> backend/.env
             # echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> backend/.env
             # cat backend/.env
+            
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml \
             --key-file ~/.ssh/id_rsa_1580c221d09bbe52ead9d181152fa494

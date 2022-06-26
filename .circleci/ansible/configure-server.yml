@@ -26,7 +26,7 @@
 
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
-     - NODE_ENV: production
+    - NODE_ENV: production
     - ENVIRONMENT: production
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
     - TYPEORM_ENTITIES: "{{ lookup('env', 'TYPEORM_ENTITIES')}}"
