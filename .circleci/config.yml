@@ -45,7 +45,7 @@ commands:
             npm run migrations:revert  
             
 jobs:
-  build-frontendd:
+  build-frontend:
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -374,7 +374,7 @@ jobs:
       # Checkout code from git
       - checkout
       - run:
-          name: Install dependencies
+          name: Install dependenciess
           command: |
             apk add --update --no-cache curl aws-cli tar gzip nodejs npm
       - attach_workspace:
@@ -495,7 +495,7 @@ workflows:
       - scan-backend:
           requires: [build-backend]
       - scan-frontend:
-          requires: [build-frontendd]
+          requires: [build-frontend]
       # - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
       #     filters:
