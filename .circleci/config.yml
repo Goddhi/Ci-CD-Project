@@ -45,7 +45,7 @@ commands:
             npm run migrations:revert  
             
 jobs:
-  build-frontend:
+  build-frontendd:
     docker:
       - image: circleci/node:13.8.0
     steps:
