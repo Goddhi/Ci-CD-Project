@@ -499,7 +499,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Setup Prometheus Node Exporter
+          name: Setup Prometheus Node Exporterr
           command: |
             cd .circleci/ansible
             cat inventory.txt
