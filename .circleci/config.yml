@@ -252,29 +252,45 @@ jobs:
   run-migrations:
     docker:
       # Docker image here that supports NodeJS
-      - image: python:3.10-alpine3.16
+      # - image: python:3.10-alpine3.16
+      - image: circleci/node:13.8.0
+      # - image: amazon/aws-cli
     steps:
       # Checkout code from git
       - checkout
       - run:
           name: Install deps
           command: |
-            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
-      - restore_cache:
-          keys: [backend-build]
+            # yum install tar gzip npm nodejs curl -y
+            sudo apt install -y tar gzip curl
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip -qq awscliv2.zip
+            sudo ./aws/install
+            # apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+      # - restore_cache:
+      #     keys: [backend-build]
+      - attach_workspace:
+          at: ~/
       - run:
           name: Run migrations
           command: |
+            # Get DB host from AWS and add to env
+            export TYPEORM_HOST=$(aws cloudformation list-exports --query "Exports[?Name==\`EndpointAddress-${CIRCLE_WORKFLOW_ID:0:7}\`].Value" --output text)
+            echo $TYPEORM_HOST
+            echo TYPEORM_HOST=$TYPEORM_HOST >> ~/project/backend/.env
             cd backend
-            npm install
-            npm run build
+            # npm install > /dev/null
+            # npm run build > /dev/null
             npm run migrations >> migrations_dump.txt
-            ls -al
             cat migrations_dump.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/backend
       - run:
           name: Send migration results to kvdb
           command: |
-            if grep -q "migrations" ~/project/backend/migrations_dump.txt
+            if grep -q "has been executed successfully" ~/project/backend/migrations_dump.txt
             then
               curl --insecure https://kvdb.io/MuX1TZL2mZ5it49bKNGjiL/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
