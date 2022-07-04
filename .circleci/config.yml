@@ -279,8 +279,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              sudo apt-get update && sudo apt-get install -y ca-certificates
-              curl https://kvdb.io/MuX1TZL2mZ5it49bKNGjiL/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              curl curl --insecure https://kvdb.io/MuX1TZL2mZ5it49bKNGjiL/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi 
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
