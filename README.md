@@ -1,19 +1,19 @@
 [![CircleCI](https://circleci.com/gh/Goddhi/Ci-CD-Project.svg?style=svg&circle-token=<YOUR_STATUS_API_TOKEN>)](https://app.circleci.com/pipelines/github/Goddhi/Ci-CD-Project)
 
 <h1>Blue Green Deployment </h1>
-- Sets up a complete blue deployment with infrastructure including:
-   - Static website deployed in an S3 bucket
-   - Cloudfront pointing to the static website
-- Creates a green deployment with the following infrastructure:
-  - S3 website frontend
-  - EC2 backend with NodeJS
-  - Postgres Database
-  - Integration tests with:
-  - Slack integration
-  - Frontend and backend smoke testing
- - Sets up centralised structured logging and diagnosis with: 
-  - Prometheus for monitoring
-  - Gmail for automated notifications
+- Sets up a complete blue deployment with infrastructure including:<br>
+   - Static website deployed in an S3 bucket<br>
+   - Cloudfront pointing to the static website<br>
+- Creates a green deployment with the following infrastructure:<br>
+  - S3 website frontend<br>
+  - EC2 backend with NodeJS<br>
+  - Postgres Database<br>
+  - Integration tests with:<br>
+  - Slack integration<br>
+  - Frontend and backend smoke testing<br>
+ - Sets up centralised structured logging and diagnosis with:<br> 
+  - Prometheus for monitoring<br>
+  - Gmail for automated notifications<br>
 
 
   <h2>Steps</h2>
